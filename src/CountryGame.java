@@ -20,37 +20,41 @@ public class CountryGame {
             System.out.println("\n\n\n");
             System.out.print("Your turn. Enter a country: ");
             String userInput = scanner.nextLine();
-            // Check if the user's input is invalid or repeated //
+            // Check if the user's input is invalid or repeated
             if (!countries.contains(userInput)) {
                 System.out.println("\n\n\n");
                 System.out.println("Invalid or repeated country! Game over!");
                 System.out.println("CPU: Haha, better start memorizing your countries!");
-                isRunning = false; // End the game by setting isRunning to false //
-
+                isRunning = false; // End the game by setting isRunning to false
+            } else {
                 countries.remove(userInput);
                 userScore++;
                 System.out.println("\n\n\n");
                 System.out.println("Good choice! Now it's my turn.");
             }
-            // Check if there are countries left for the CPU's turn //
-            if (!countries.isEmpty()) {
+            // Check if there are countries left for the CPU's turn
+            if (isRunning && !countries.isEmpty()) {
                 String cpuChoice = countries.remove((int) (Math.random() * countries.size()));
                 System.out.println("CPU: I choose " + cpuChoice + ".");
-            }
-            // Check if the list is empty after the CPU's turn and if the game should end //
-            if (countries.isEmpty()) {
-                System.out.println("\n\n\n");
-                System.out.println("CPU: I ran out of countries. You win!");
-                isRunning = false; // End the game since there are no countries left //
-            }
-            // Continue the game until the isRunning flag is false //
-            if (!isRunning) {
-                return "Game over! Your score: " + userScore; // Return the final score after the game ends //
+
+                // Check if the list is empty after the CPU's turn
+                if (countries.isEmpty()) {
+                    System.out.println("\n\n\n");
+                    System.out.println("CPU: I ran out of countries. You win!");
+                    isRunning = false; // End the game since there are no countries left
+                } else {
+                    System.out.println("Your turn!");
+                }
             }
         }
-        // Will only reach here when there is only 1 Country or None //
+
+        // Will only reach here when there's 1 Country or None
+        if (!isRunning) {
+            return "Game over! Your score: " + userScore; // Return the final score after the game ends
+        }
         return "Unexpected end of game!";
     }
+
 
     private void askUserForCountries() {
         boolean loop = true;
